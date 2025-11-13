@@ -1,10 +1,9 @@
 INICIO
-  def x = 10;
+  x = 10;
   def _y = 20;
-  def palabra = 'hola mundo';
-  def α = 5;
-  def un_identificador_muy_largo = 100;
-
+  palabra = 'hola mundo';
+  α = 5;
+  un_identificador_largo = 100;
   imprimir(palabra);
   imprimir('otra cosa');
 

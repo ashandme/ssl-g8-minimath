@@ -1,5 +1,5 @@
 /minimath
-/minimath.yy.l
+/minimath.yy.c
 /lex.yy.c
 /minimath.tab.c
 /minimath.tab.h

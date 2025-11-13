@@ -1,0 +1,12 @@
+INICIO
+  cliente1 = 10;
+  cliente2 = 20;
+  palabra = 'hola mundo';
+  α = 5;
+  cliente1 = cliente1 + α;
+  cliente2 = cliente2 * α;
+  
+  imprimir('clientes afectados:');
+  total = cliente1 + cliente2;
+  imprimir(total);
+FIN
