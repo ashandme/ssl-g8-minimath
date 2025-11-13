@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# A simple configure script for the minimath project.
+#
+# This script checks for the required dependencies to build the project.
+
+echo "Configuring minimath..."
+
+# Check for a C compiler
+echo -n "Checking for gcc... "
+if ! command -v gcc > /dev/null 2>&1; then
+    echo "not found."
+    echo "Error: A C compiler (gcc) is required." >&2
+    exit 1
+fi
+echo "ok."
+
+# Check for flex
+echo -n "Checking for flex... "
+if ! command -v flex > /dev/null 2>&1; then
+    echo "not found."
+    echo "Error: flex is required." >&2
+    exit 1
+fi
+echo "ok."
+
+# Check for bison
+echo -n "Checking for bison... "
+if ! command -v bison > /dev/null 2>&1; then
+    echo "not found."
+    echo "Error: bison is required." >&2
+    exit 1
+fi
+echo "ok."
+
+
+echo "Configuration complete. You can now run 'make'."
+exit 0
