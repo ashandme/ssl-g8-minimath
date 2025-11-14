@@ -8,7 +8,7 @@ void yyerror(const char *s);
 
 extern int yylineno;
 
-/* --- Symbol Table --- */
+/* --- TABLA DE SIMBOLOS --- */
 struct symbol {
     char *name;
     int value;
@@ -75,10 +75,10 @@ impresion:
 
 expresion:
       CONSTANTE           { $$ = $1; }
-    | ID                  { struct symbol *s = lookup($1); if (s) $$ = s->value; else { yyerror("Identificador no definido"); $$ = 0; } }
+    | ID                  { struct symbol *s = lookup($1); if (s) $$ = s->value; else { yyerror("AS: Identificador no definido"); $$ = 0; } }
     | expresion SUMA expresion      { $$ = $1 + $3; }
     | expresion PRODUCTO expresion  { $$ = $1 * $3; }
-    | expresion DIVISION expresion  { if ($3 != 0) $$ = $1 / $3; else { yyerror("Division por cero"); $$ = 0; } }
+    | expresion DIVISION expresion  { if ($3 != 0) $$ = $1 / $3; else { yyerror("AS: Division por cero"); $$ = 0; } }
     | PARENIZQUIERDO expresion PARENDERECHO { $$ = $2; }
     ;
 
@@ -87,7 +87,7 @@ expresion:
 /* Sección de código de usuario */
 
 void yyerror(const char *s) {
-    fprintf(stderr, "Error en línea %d: %s\n", yylineno, s);
+    fprintf(stderr, "AS: Error en línea %d: %s\n", yylineno, s);
 }
 
 /* --- Symbol Table Functions --- */
@@ -110,19 +110,19 @@ void insert(char *name, int value) {
     }
     sp->value = value;
 }
-
+/* OBJETIVO DEL TP */
 void check_identifier_value(char* name) {
     struct symbol *s = lookup(name);
     if (s) {
         if (s->value >= 1 && s->value <= 100) {
-            printf("Info: El identificador '%s' tiene un valor (%d) entre 1 y 100.\n", s->name, s->value);
+            printf("AS: El identificador '%s' está entre 1 y 100.\n", s->name);
         } else if (s->value > 100) {
-            printf("Info: El identificador '%s' tiene un valor (%d) mayor a 100.\n", s->name, s->value);
+            printf("AS: El identificador '%s' es mayor a 101.\n", s->name);
         } else {
-            printf("Info: El identificador '%s' tiene un valor (%d) que no está en los rangos de interés.\n", s->name, s->value);
+            printf("AS: El identificador '%s' tiene un valor (%d) que no está en los rangos de interés.\n", s->name, s->value);
         }
     } else {
-        fprintf(stderr, "Error: Identificador '%s' no definido al imprimir.\n", name);
+        fprintf(stderr, "AS: Identificador '%s' no definido al imprimir.\n", name);
     }
 }
 
@@ -140,7 +140,7 @@ int main(int argc, char *argv[]) {
     int resultado = yyparse();
 
     if (resultado == 0)
-        printf("Análisis sintáctico completado correctamente.\n");
+        printf("Análisis sintáctico (AS) completado correctamente.\n");
     else
         printf("Hubo errores de sintaxis.\n");
 

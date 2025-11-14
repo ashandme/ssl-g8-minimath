@@ -14,7 +14,7 @@ extern int yylineno;
 /* Regular Expression Definitions */
 LETRA        [a-zA-Z]
 DIGITO       [0-9]
-LETRA_GRIEGA_SOLA (\xCE\xB1)
+LETRA_GRIEGA_SOLA (\xCE\xB1|\xCE\xB2|\xCE\xB3|\xCE\xBB)
 IDENTIFICADOR_COMUN ([a-zA-Z_][a-zA-Z0-9_]{0,15})
 IDENTIFICADOR_LARGO  ([a-zA-Z_][a-zA-Z0-9_]{16,})
 
@@ -24,7 +24,7 @@ IDENTIFICADOR_LARGO  ([a-zA-Z_][a-zA-Z0-9_]{16,})
 "FIN"       { return FIN; }
 
 {IDENTIFICADOR_LARGO} {
-    fprintf(stderr, "Lexical Error: Identifier '%s' on line %d exceeds maximum length of 16 characters.\n",
+    fprintf(stderr, "AL: '%s': identificador largo en la linea %d.\n",
             yytext, yylineno);
     return ERROR;
 }
@@ -45,8 +45,8 @@ IDENTIFICADOR_LARGO  ([a-zA-Z_][a-zA-Z0-9_]{16,})
 }
 
 '[^'\n]*' {
-    yytext[yyleng-1] = 0; // Remove trailing quote
-    yylval.sval = strdup(yytext+1); // Copy content without leading quote
+    yytext[yyleng-1] = 0;
+    yylval.sval = strdup(yytext+1); // copiar interior
     return CADENA;
 }
 

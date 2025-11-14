@@ -1,0 +1,17 @@
+INICIO
+  base = 10;
+  β = 5;
+  γ = 2;
+  α = 20;
+  valor_grande = 200;
+
+  imprimir(valor_grande);
+
+  res_parcial = (base * β) + α;
+  res_final = res_parcial / γ;
+
+  λ = res_final + 10;
+
+  imprimir('clientes afectados');
+  imprimir(λ);
+FIN
