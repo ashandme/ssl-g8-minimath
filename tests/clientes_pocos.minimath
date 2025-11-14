@@ -1,11 +1,11 @@
 INICIO
   cliente1 = 10;
   cliente2 = 20;
-  α = 5;
+  α = 1;
   cliente1 = cliente1 + α;
   cliente2 = cliente2 * α;
   
-  imprimir('clientes afectados:');
+  imprimir('clientes afectados (pocos):');
   total = cliente1 + cliente2;
   imprimir(total);
 FIN
