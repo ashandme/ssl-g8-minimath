@@ -3,10 +3,17 @@ INICIO
   cliente2 = 20;
   palabra = 'hola mundo';
   α = 5;
-  cliente1 = cliente1 + α;
-  cliente2 = cliente2 * α;
+  cliente1 = cliente1 + αa;
+  cliente2 = cliente2 * αa;
   
-  imprimir('clientes afectados:');
+  imprimir('clientes afectados: ');
   total = cliente1 + cliente2;
+  si (token > 0) INICIO
+    si (token < 100) INICIO
+      imprimir('entre 0 y 100');
+    FIN sino INICIO
+      imprimir('mayor a 101');
+    FIN
+  FIN
   imprimir(total);
 FIN

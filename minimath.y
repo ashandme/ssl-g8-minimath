@@ -121,6 +121,10 @@ int main(int argc, char *argv[]) {
             return 1;
         }
     }
+    else {
+      fprintf(stderr, "Error: No hay un archivo de entrada.\n");
+      return 1;
+    }
 
     printf("Iniciando análisis sintáctico...\n");
     int resultado = yyparse();
