@@ -18,9 +18,14 @@ void print_token(int type, const char* text);
 LETRA        [a-zA-Z]
 DIGITO       [0-9]
 LETRA_GRIEGA ([\xCE][\x91-\xBF]|[\xCF][\x80-\xB7])
-IDENTIFICADOR_VALIDO ({LETRA}|{LETRA_GRIEGA}|_)({LETRA}|{LETRA_GRIEGA}|{DIGITO}|_){0,15}
+ID_GRIEGO ({LETRA_GRIEGA})
+ID_NORMAL ({LETRA})({LETRA}|{DIGITO}|_){0,15}
+IDENTIFICADOR_VALIDO ({ID_GRIEGO}|{ID_NORMAL})
 IDENTIFICADOR_LARGO  ({LETRA}|{LETRA_GRIEGA}|_)({LETRA}|{LETRA_GRIEGA}|{DIGITO}|_){16,}
-
+/*
+DENTIFICADOR_VALIDO ({LETRA}|{LETRA_GRIEGA}|_)({LETRA}|{LETRA_GRIEGA}|{DIGITO}|_){0,15}
+IDENTIFICADOR_LARGO  ({LETRA}|{LETRA_GRIEGA}|_)({LETRA}|{LETRA_GRIEGA}|{DIGITO}|_){16,}
+*/
 %%
 
 "si"        { SAVE_PREV_TEXT(); print_token(TOKEN_SI, yytext); return TOKEN_SI; }
@@ -81,7 +86,6 @@ IDENTIFICADOR_LARGO  ({LETRA}|{LETRA_GRIEGA}|_)({LETRA}|{LETRA_GRIEGA}|{DIGITO}|
     print_token(TOKEN_ERROR, yytext);
     return TOKEN_ERROR;
 }
-
 %%
 
 void print_token(int type, const char* text) {

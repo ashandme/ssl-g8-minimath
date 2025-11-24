@@ -31,7 +31,6 @@ extern char *yy_prev_text;
 %left TOKEN_MAYOR TOKEN_MENOR TOKEN_MAYOR_IGUAL TOKEN_MENOR_IGUAL TOKEN_IGUAL_IGUAL TOKEN_DISTINTO
 
 %%
-
 programa:
       TOKEN_INICIO sentencias TOKEN_FIN
    ;
@@ -47,7 +46,7 @@ sentencia:
     | impresion TOKEN_PUNTO_Y_COMA
     | estructura_si
     | definicion_funcion
-   ;
+    ;
 
 asignacion:
       TOKEN_IDENTIFICADOR TOKEN_IGUAL expresion
@@ -94,10 +93,13 @@ expresion:
 void yyerror(const char *s) {
     extern int yylineno;
     extern char *yy_prev_text;
-
+    if (yychar == TOKEN_ERROR) {
+      printf("Se detectó un error lexico. fin\n");
+        return;
+    }
     fprintf(stderr, "Error de sintaxis en línea %d cerca de '%s'.\n",
             yylineno, yy_prev_text ? yy_prev_text : "EOF");
-
+    
     // Sugerencias inteligentes según el último token
     if (yy_prev_text) {
         if (strcmp(yy_prev_text, "FIN") == 0 ||
@@ -120,19 +122,18 @@ int main(int argc, char *argv[]) {
             perror("Error al abrir archivo");
             return 1;
         }
+    } else {
+        printf("Error: No hay un archivo de entrada.\n");
+        return 1;
     }
-    else {
-      fprintf(stderr, "Error: No hay un archivo de entrada.\n");
-      return 1;
-    }
-
-    printf("Iniciando análisis sintáctico...\n");
+    printf("Iniciando análisis\n");
     int resultado = yyparse();
-
     if (resultado == 0)
         printf("Análisis sintáctico completado correctamente.\n");
+    /*
     else
-        printf("Hubo errores de sintaxis.\n");
-
+        printf("Hubo errores durante el análisis.\n");
+    */
+    if (yyin) fclose(yyin);
     return 0;
 }
